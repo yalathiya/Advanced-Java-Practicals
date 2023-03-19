@@ -7,7 +7,7 @@
  * @author Yash
  */
 
-//  . Write a java program(s) to implement simple chat application
+//  Write a java program(s) to implement simple chat application
 
 import java.io.*;
 import java.net.*;
@@ -17,6 +17,8 @@ public class Practical4Server {
     
     /**
      * @param args the command line arguments
+     * @param {str} message which will be send to client
+     * @param {msg} message which is send by client
      */
     public static void main(String[] args) {
 

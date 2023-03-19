@@ -17,6 +17,8 @@ public class Practical4Client {
 
     /**
      * @param args the command line arguments
+     * @param {str} message which will be send to server
+     * @param {msg} message which is send by server 
      */
     public static void main(String[] args) {
         try {
