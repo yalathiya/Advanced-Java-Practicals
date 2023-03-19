@@ -13,56 +13,59 @@
 //Client enters and sends following number => 10, 25, 4, 29, and 15, exit. 
 //Output on client program should be => 4, 10, 15, 25,29.
 
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
-public class Practical2Server {
 
+public class Practical2Server {
+    
     /**
      * @param args the command line arguments
+     * @param {numbers} List of num
+     * @param {num} a number which is entered by client at command line
      */
-    public static void main(String args[]) {
-        try{
-            ServerSocket ss = new ServerSocket(3000);
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(3000); // create server socket
             System.out.println("Server started. Waiting for client...");
 
-            Socket s = ss.accept();
-            System.out.println("Client Connected");
+            Socket socket = serverSocket.accept(); // accept client connection
+            System.out.println("Client connected.");
 
-            InputStream i = s.getInputStream();
-            DataInputStream dis = new DataInputStream(i);
-            OutputStream o = s.getOutputStream();
-            DataOutputStream dos = new DataOutputStream(o);
+            // create input/output streams
+            InputStream is = socket.getInputStream();
+            DataInputStream dis = new DataInputStream(is);
+            OutputStream os = socket.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(os);
 
             List<Integer> numbers = new ArrayList<Integer>();
-            while(true){
-                try{
-                    int num = dis.readInt();
-                    if(num == -1){
+            while (true) {
+                try {
+                    int num = dis.readInt(); // read number sent by client
+                    if (num == -1) { // client signals end of input
                         break;
                     }
                     numbers.add(num);
-                }
-                catch(Exception e){
-                    System.out.println(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
                     break;
                 }
-            } 
+            }
 
-            Collections.sort(numbers); // sort the numbers 
+            Collections.sort(numbers); // sort the numbers
 
-            //send sorted numbers back to client
-            for(int num : numbers){
+            // send sorted numbers back to client
+            for (int num : numbers) {
                 dos.writeInt(num);
             }
             dos.writeInt(-1); // signal end of output
 
             System.out.println("Numbers sorted and sent back to client.");
-            ss.close(); // close server socket
-
-        }
-        catch(Exception e){
-            System.out.println(e);
+            serverSocket.close(); // close server socket
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
+

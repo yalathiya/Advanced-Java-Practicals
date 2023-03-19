@@ -13,62 +13,63 @@
 //Client enters and sends following number => 10, 25, 4, 29, and 15, exit. 
 //Output on client program should be => 4, 10, 15, 25,29.
 
-import java.util.*;
+
 import java.io.*;
 import java.net.*;
+import java.util.*;
+
 public class Practical2Client {
 
     /**
      * @param args the command line arguments
-     * @param {str} numbers which enters user for sorting
+     * @param {numbers} List of num
+     * @param {num} a number which is entered by client at command line
      */
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        try{
-            Socket s = new Socket("localhost", 3000);
+    public static void main(String[] args) {
+        try {
+            Socket socket = new Socket("localhost", 3000); // connect to server
             System.out.println("Connected to server.");
-            
-            InputStream i = s.getInputStream();
-            DataInputStream dis = new DataInputStream(i);
-            OutputStream o = s.getOutputStream();
-            DataOutputStream dos = new DataOutputStream(o);
-            
+
+            // create input/output streams
+            InputStream is = socket.getInputStream();
+            DataInputStream dis = new DataInputStream(is);
+            OutputStream os = socket.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(os);
+
+            Scanner sc = new Scanner(System.in);
             List<Integer> numbers = new ArrayList<Integer>();
 
-            System.out.println("Enter positive numbers -- Write exit after entering all numbers");
+            System.out.println("Enter numbers to be sorted (enter -1 to stop):");
 
             // read numbers from user input and send to server
-            while(true){
-                int str = sc.nextInt();
-                if(str == -1){
+            while (true) {
+                int num = sc.nextInt();
+                if (num == -1) {
                     break;
                 }
-                numbers.add(str);
-                dos.writeInt(-1);
+                numbers.add(num);
+                dos.writeInt(num);
             }
-            dos.writeInt(-1); // -1 for reference for Server -- data is ended
+            dos.writeInt(-1); // signal end of input
 
-            //Sorted Numbers
-            while(true){
-                try{
+            // read sorted numbers from server and print
+            System.out.println("Sorted numbers:");
+            while (true) {
+                try {
                     int num = dis.readInt();
-                    if(num == -1){
+                    if (num == -1) {
                         break;
                     }
-                    System.out.println(num+" ");
-                }
-                catch(Exception e){
-                    System.out.println(e);
+                    System.out.print(num + " ");
+                } catch (Exception e) {
+                    e.printStackTrace();
                     break;
                 }
             }
-            
-            s.close();
-            sc.close();
+
+            socket.close(); // close socket
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e){
-            System.out.println("Error to execute");
-        }
-        
     }
 }
