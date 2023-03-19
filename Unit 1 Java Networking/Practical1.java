@@ -16,6 +16,7 @@ public class Practical1 {
 
     /**
      * @param args the command line arguments
+     * @param {str} URL of Website
      */
     
     public static void main(String args[]) {
