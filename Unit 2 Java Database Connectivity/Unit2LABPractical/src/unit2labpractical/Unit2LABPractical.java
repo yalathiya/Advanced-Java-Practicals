@@ -13,7 +13,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 /**
- *
  * @author Yash
  */
 public class Unit2LABPractical {
