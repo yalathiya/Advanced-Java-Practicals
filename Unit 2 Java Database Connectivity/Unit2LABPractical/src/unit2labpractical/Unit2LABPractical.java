@@ -19,6 +19,9 @@ import java.sql.Statement;
 public class Unit2LABPractical {
     /**
      * @param args the command line arguments
+     * @param {con} object of Connection class
+     * @param {stmt} object of statement class
+     * @param {sq} Insert SQL Query
      */
     public static void main(String[] args) {
         try {
