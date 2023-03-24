@@ -4,6 +4,8 @@
  */
 package unit2labpractical;
 
+//Write a java program to insert a student record in Student Table. 
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
@@ -25,7 +27,7 @@ public class Unit2LABPractical {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/advancejavapractical","root","Yash@2233");
             
             Statement stmt = con.createStatement();
-            String sq = "INSERT INTO student VALUES ('ajay', 'ya', 'yash@gmail.com', 'surat',7046985354, 1)";
+            String sq = "INSERT INTO student VALUES ('yash', 'ya', 'yash@gmail.com', 'surat',7046985354, 1)";
             stmt.executeUpdate(sq);
             
             
